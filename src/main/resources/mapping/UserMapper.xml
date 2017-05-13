@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.school_circle.ssm.mapper.UserMapper">
+
+    <resultMap id="UserBaseMap" type="com.school_circle.ssm.model.User">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="telephone" property="telephone" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="avatar"  property="avatar" jdbcType="VARCHAR"/>
+        <result column="account" property="account" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="create_on" property="createOn" jdbcType="TIMESTAMP"/>
+        <result column="real_name" property="realName" jdbcType="VARCHAR"/>
+        <result column="age" property="age" jdbcType="INTEGER"/>
+        <result column="id" property="id" jdbcType="BIGINT"/>
+        <result column="birthday" property="birthday" jdbcType="TIMESTAMP"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <update id="uploadAvatar">
+        UPDATE sc_user SET avatar = #{1} WHERE id = #{0}
+    </update>
+
+    <select id="selectAllUsers" resultMap="UserBaseMap">
+        SELECT * FROM sc_user
+    </select>
+
+    <insert id="addUser" parameterType="com.school_circle.ssm.model.User">
+        insert into sc_user
+        (user_name,email,account,password,create_on,status)
+        VALUE
+        (#{userName},#{email},#{account},#{password},#{createOn},#{status})
+    </insert>
+
+    <select id="login" resultMap="UserBaseMap" parameterType="com.school_circle.ssm.model.User">
+        select * from sc_user where account=#{account} and password=#{password}
+    </select>
+
+    <select id="selectByAccount" resultMap="UserBaseMap" parameterType="com.school_circle.ssm.model.User">
+        select * from sc_user where account=#{account}
+    </select>
+
+    <select id="selectByEmail" resultMap="UserBaseMap" parameterType="com.school_circle.ssm.model.User">
+        select * from sc_user where email=#{email}
+    </select>
+
+    <select id="selectByUserName" resultMap="UserBaseMap" parameterType="com.school_circle.ssm.model.User">
+        select * from sc_user where user_name=#{userName}
+    </select>
+
+    <select id="selectByUserId" resultMap="UserBaseMap">
+        select * from sc_user where  id = #{0}
+    </select>
+
+    <select id="selectByTelephone" resultMap="UserBaseMap" parameterType="com.school_circle.ssm.model.User">
+        select * from sc_user where telephone=#{telephone}
+    </select>
+
+</mapper>
